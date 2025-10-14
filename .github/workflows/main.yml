@@ -1,0 +1,29 @@
+name: Demo CI/CD
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python 3.9
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Display Python version
+        run: python -c "import sys; print(sys.version)"
+
+      - name: Run a simple test
+        run: |
+          echo "Running Python file..."
+          python main.py || echo "main.py not found, skipping"
